@@ -1,16 +1,15 @@
 package cn.edu.whut.soar.entity;
 
 import cn.edu.whut.soar.service.Item;
-import cn.edu.whut.soar.service.Room;
 import lombok.Data;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
+
 
 @Data
 public class RoomVO {
+    String name;
     String description;
-    HashMap<String, Room> exits;
-    List<Item> items;
-    Boolean isTransfer;
+    boolean[] exits;
+    ArrayList<Item> items;
 }

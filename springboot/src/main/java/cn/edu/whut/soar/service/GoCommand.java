@@ -1,5 +1,7 @@
 package cn.edu.whut.soar.service;
 
+import cn.edu.whut.soar.entity.Room;
+
 import java.util.Random;
 import java.util.Stack;
 
@@ -23,8 +25,8 @@ public class GoCommand extends Command
             Stack path = game.getPath();
             path.push(currentRoom);
 
-            if (nextRoom.getShortDescription().equals("你即将被随机传送！")){
-                System.out.println(nextRoom.getShortDescription());
+            if (nextRoom.getName().equals("tpRoom")){
+                System.out.println(nextRoom.getName());
                 path.clear();
                 Random random = new Random();
                 game.setCurrentRoom(nextRoom.getExit(String.valueOf(random.nextInt(5))));

@@ -1,19 +1,22 @@
-package cn.edu.whut.soar.service;
+package cn.edu.whut.soar.entity;
+
+import cn.edu.whut.soar.service.Item;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.HashMap;
 
 public class Room
 {
+    private String name;
     private String description;
     private HashMap<String, Room> exits;        // stores exits of this room.
 
     private ArrayList<Item> items;
 
-    public Room(String description)
+    public Room(String name,String description)
     {
+        this.name = name;
         this.description = description;
         exits = new HashMap<>();
         items = new ArrayList<>();
@@ -32,9 +35,9 @@ public class Room
         items.add(item);
     }
 
-    public String getShortDescription()
+    public String getName()
     {
-        return description;
+        return name;
     }
 
     public String getLongDescription()
@@ -56,7 +59,7 @@ public class Room
      * 显示房间内的物品
      * @return 返回所有物品的描述和重量
      */
-    private String getItemsString() {
+    public String getItemsString() {
         String returnString="Items:";
         for(Item item:items) {
             returnString += " "+item.getDescription()+"-"+item.getWeight();
@@ -71,15 +74,8 @@ public class Room
 
     public HashMap<String, Room> getExits(){return exits;}
 
-    public List<Item> getItems(){return items;}
+    public ArrayList<Item> getItems(){return items;}
 
-    /**
-     * 获取所有的物品信息
-     * @return 描述物品的字符串
-     */
-    public String getItem() {
-        return getItemsString();
-    }
 }
 
 

@@ -1,5 +1,7 @@
 package cn.edu.whut.soar.service;
 
+import cn.edu.whut.soar.entity.Room;
+
 import java.util.Stack;
 
 public class BackCommand extends Command{
@@ -13,7 +15,7 @@ public class BackCommand extends Command{
         else {
             Room backRoom = (Room) game.getPath().pop();
             game.setCurrentRoom(backRoom);
-            System.out.println("你已经回到"+backRoom.getShortDescription());
+            System.out.println("你已经回到"+backRoom.getName());
         }
 
         return false;
