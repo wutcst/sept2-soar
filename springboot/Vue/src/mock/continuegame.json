@@ -1,0 +1,19 @@
+{
+    "name": "theater",
+    "description": "gdfdsd",
+    "direction": [
+        0,
+        0,
+        0,
+        1
+    ],
+    "items": [
+        {
+            "description": "物品B",
+            "weight": "15"
+        }
+    ],
+    "room_name": [
+        "outside"
+    ]
+}

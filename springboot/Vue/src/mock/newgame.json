@@ -1,0 +1,20 @@
+{
+    "name": "outside",
+    "description": "dawdwad",
+    "direction": [
+        1,
+        1,
+        1,
+        1
+    ],
+    "items": [
+        {
+            "description": "物品A",
+            "weight": "10"
+        },
+        {
+            "description": "物品B",
+            "weight": "12"
+        }
+    ]
+}

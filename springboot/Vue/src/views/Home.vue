@@ -3,15 +3,33 @@
     <div class="box">
       <h1>world of zuul</h1>
       <h3>祖尔的世界</h3>
-      <button @click="$router.push({ path: '/game' })">开始游戏</button>
+      <button @click="createGame">开始游戏</button>
+      <button v-if="last_game.name != null" @click="continueGame">
+        继续游戏
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import { getContinueGame } from "@/api";
 export default {
   data() {
-    return {};
+    return {
+      last_game: {},
+    };
+  },
+  async mounted() {
+    const res = await getContinueGame({});
+    this.last_game = res.data;
+  },
+  methods: {
+    createGame() {
+      this.$router.push({ path: "/game", query: { isNew: 1 } });
+    },
+    continueGame() {
+      this.$router.push({ path: "/game", query: { isNew: 0 } });
+    },
   },
 };
 </script>
@@ -41,7 +59,7 @@ export default {
   }
   @keyframes light {
     0% {
-      color: black;
+      color: rgb(56, 56, 56);
     }
     100% {
       color: white;
@@ -58,6 +76,7 @@ export default {
     background: rgb(65, 65, 65);
     border: none;
     color: #625f5f;
+    margin-bottom: 20px;
     &:hover {
       color: white;
       text-shadow: 0 0 10px #03e9f4;
