@@ -1,5 +1,7 @@
 package cn.edu.whut.soar.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.HashMap;
 
@@ -8,13 +10,13 @@ public class Room
     private String description;
     private HashMap<String, Room> exits;        // stores exits of this room.
 
-    private HashMap<Room, Item> items;
+    private ArrayList<Item> items;
 
     public Room(String description)
     {
         this.description = description;
         exits = new HashMap<>();
-        items = new HashMap<>();
+        items = new ArrayList<>();
     }
 
     public void setExit(String direction, Room neighbor)
@@ -27,7 +29,7 @@ public class Room
      * @param item 房间内的物品
      */
     public void setItem(Item item) {
-        items.put(this, item);
+        items.add(item);
     }
 
     public String getShortDescription()
@@ -56,12 +58,8 @@ public class Room
      */
     private String getItemsString() {
         String returnString="Items:";
-        Set<Room> keys = items.keySet();
-        for(Room atRoom:keys) {
-            if (atRoom.description.equals(description)){
-                Item item = items.get(this);
-                returnString += " "+item.getDescription()+"-"+item.getWeight();
-            }
+        for(Item item:items) {
+            returnString += " "+item.getDescription()+"-"+item.getWeight();
         }
         return returnString;
     }
@@ -70,6 +68,10 @@ public class Room
     {
         return exits.get(direction);
     }
+
+    public HashMap<String, Room> getExits(){return exits;}
+
+    public List<Item> getItems(){return items;}
 
     /**
      * 获取所有的物品信息
