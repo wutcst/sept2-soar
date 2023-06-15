@@ -11,6 +11,8 @@
  */
 package cn.edu.whut.soar.service;
 
+import cn.edu.whut.soar.entity.ItemEntity;
+
 import java.util.Stack;
 
 public class Game
@@ -66,17 +68,17 @@ public class Game
         tpRoom.setExit("5",library);
 
         //初始化房间物品
-        outside.setItem(new Item("apple_outside",1));
+        outside.setItem(new ItemEntity("apple_outside",1));
 
-        theater.setItem(new Item("dancer_theater",2));
+        theater.setItem(new ItemEntity("dancer_theater",2));
 
-        pub.setItem(new Item("beer_pub",3));
+        pub.setItem(new ItemEntity("beer_pub",3));
 
-        lab.setItem(new Item("lab_outside",4));
+        lab.setItem(new ItemEntity("lab_outside",4));
 
-        office.setItem(new Item("computer_office",5));
+        office.setItem(new ItemEntity("computer_office",5));
 
-        library.setItem(new Item("book_library",4));
+        library.setItem(new ItemEntity("book_library",4));
 
 
         currentRoom = outside;  // start game outside

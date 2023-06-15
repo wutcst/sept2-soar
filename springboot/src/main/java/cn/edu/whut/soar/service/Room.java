@@ -1,5 +1,7 @@
 package cn.edu.whut.soar.service;
 
+import cn.edu.whut.soar.entity.ItemEntity;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 //设置房间类
@@ -9,7 +11,7 @@ public class Room
     private String description;
     private HashMap<String, Room> exits;        // stores exits of this room.
 
-    private ArrayList<Item> items;
+    private ArrayList<ItemEntity> items;
 
     public Room(String name,String description)
     {
@@ -28,7 +30,7 @@ public class Room
      * 设置房间内的物品
      * @param item 房间内的物品
      */
-    public void setItem(Item item) {
+    public void setItem(ItemEntity item) {
         items.add(item);
     }
 
@@ -49,7 +51,7 @@ public class Room
 
     public HashMap<String, Room> getExits(){return exits;}
 
-    public ArrayList<Item> getItems(){return items;}
+    public ArrayList<ItemEntity> getItems(){return items;}
 
 }
 

@@ -1,7 +1,7 @@
 package cn.edu.whut.soar.controller;
 
 
-import cn.edu.whut.soar.entity.RoomVO;
+import cn.edu.whut.soar.entity.RoomEntity;
 import cn.edu.whut.soar.service.Game;
 
 import cn.edu.whut.soar.service.Room;
@@ -21,24 +21,21 @@ import java.util.Stack;
 @Controller
 @CrossOrigin(origins = "http://localhost:8080")
 public class GameController {
-
     Game game = new Game();
-    @Autowired
-    RoomService roomService ;
 
+    @Autowired
+    RoomService roomService;
 
     //请求开始
-    @RequestMapping ("/createGame")
+    @RequestMapping("/createGame")
     @ResponseBody
-    public RoomVO CreateGame(){
+    public RoomEntity CreateGame() {
         return roomService.toVO(game.getCurrentRoom());
     }
 
-
-
     @RequestMapping("/go")
     @ResponseBody
-    public RoomVO Go(@RequestParam("direction") String direction){
+    public RoomEntity Go(@RequestParam("direction") String direction) {
         Room currentRoom = game.getCurrentRoom();
         Stack path = game.getPath();
         path.push(currentRoom);
@@ -49,20 +46,18 @@ public class GameController {
 
     @RequestMapping("/back")
     @ResponseBody
-    public RoomVO Back(){
+    public RoomEntity Back() {
         Stack path = game.getPath();
-        if (!path.empty())
-        {
+        if (!path.empty()) {
             Room backRoom = (Room) game.getPath().pop();
             game.setCurrentRoom(backRoom);
         }
         return roomService.toVO(game.getCurrentRoom());
     }
 
-
     @RequestMapping("/transfer")
     @ResponseBody
-    public RoomVO TP(){
+    public RoomEntity TP() {
         Stack path = game.getPath();
         path.clear();
         Random random = new Random();
@@ -70,8 +65,6 @@ public class GameController {
         game.setCurrentRoom(game.getCurrentRoom().getExit(String.valueOf(random.nextInt(6))));
         return roomService.toVO(game.getCurrentRoom());
     }
-
-
 
 
 }
