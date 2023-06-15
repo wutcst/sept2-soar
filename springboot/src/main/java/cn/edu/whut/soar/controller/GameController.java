@@ -4,7 +4,7 @@ package cn.edu.whut.soar.controller;
 import cn.edu.whut.soar.entity.RoomVO;
 import cn.edu.whut.soar.service.Game;
 
-import cn.edu.whut.soar.entity.Room;
+import cn.edu.whut.soar.service.Room;
 import cn.edu.whut.soar.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -59,7 +59,7 @@ public class GameController {
         return roomService.toVO(game.getCurrentRoom());
     }
 
-    @RequestMapping("/tp")
+    @RequestMapping("/transfer")
     @ResponseBody
     public RoomVO TP(){
         Stack path = game.getPath();
@@ -69,7 +69,7 @@ public class GameController {
         return roomService.toVO(game.getCurrentRoom());
     }
 
-    
+
 
 
 }

@@ -1,6 +1,4 @@
-package cn.edu.whut.soar.entity;
-
-import cn.edu.whut.soar.service.Item;
+package cn.edu.whut.soar.service;
 
 import java.util.ArrayList;
 import java.util.Set;

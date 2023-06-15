@@ -1,6 +1,5 @@
 package cn.edu.whut.soar.service;
 
-import cn.edu.whut.soar.entity.Room;
 import cn.edu.whut.soar.entity.RoomVO;
 import org.springframework.stereotype.Service;
 

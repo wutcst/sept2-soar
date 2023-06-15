@@ -1,7 +1,5 @@
 package cn.edu.whut.soar.service;
 
-import cn.edu.whut.soar.entity.Room;
-
 import java.util.Random;
 import java.util.Stack;
 
