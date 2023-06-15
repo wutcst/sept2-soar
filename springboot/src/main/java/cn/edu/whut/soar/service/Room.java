@@ -1,7 +1,6 @@
 package cn.edu.whut.soar.service;
 
 import java.util.ArrayList;
-import java.util.Set;
 import java.util.HashMap;
 //设置房间类
 public class Room
@@ -41,28 +40,6 @@ public class Room
     public String getDescription()
     {
         return description;
-    }
-
-    private String getExitString()
-    {
-        String returnString = "Exits:";
-        Set<String> keys = exits.keySet();
-        for(String exit : keys) {
-            returnString += " " + exit;
-        }
-        return returnString;
-    }
-
-    /**
-     * 显示房间内的物品
-     * @return 返回所有物品的描述和重量
-     */
-    public String getItemsString() {
-        String returnString="Items:";
-        for(Item item:items) {
-            returnString += " "+item.getDescription()+"-"+item.getWeight();
-        }
-        return returnString;
     }
 
     public Room getExit(String direction)
