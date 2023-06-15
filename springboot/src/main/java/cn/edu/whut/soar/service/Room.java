@@ -1,11 +1,9 @@
-package cn.edu.whut.soar.entity;
-
-import cn.edu.whut.soar.service.Item;
+package cn.edu.whut.soar.service;
 
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashMap;
-
+//设置房间类
 public class Room
 {
     private String name;
@@ -40,9 +38,9 @@ public class Room
         return name;
     }
 
-    public String getLongDescription()
+    public String getDescription()
     {
-        return "You are " + description + ".\n" + getExitString();
+        return description;
     }
 
     private String getExitString()
