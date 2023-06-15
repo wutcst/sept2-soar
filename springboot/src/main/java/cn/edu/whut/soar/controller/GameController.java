@@ -59,12 +59,14 @@ public class GameController {
         return roomService.toVO(game.getCurrentRoom());
     }
 
+
     @RequestMapping("/transfer")
     @ResponseBody
     public RoomVO TP(){
         Stack path = game.getPath();
         path.clear();
         Random random = new Random();
+        //随机房间的出口有5个
         game.setCurrentRoom(game.getCurrentRoom().getExit(String.valueOf(random.nextInt(5))));
         return roomService.toVO(game.getCurrentRoom());
     }
