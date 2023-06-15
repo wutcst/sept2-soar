@@ -8,21 +8,22 @@ public class Item {
     private double weight;
 
     /**
-     * 物品初始化
+     * 对于物品的初始化
      */
     public Item(String description,double weight){
         this.description = description;
         this.weight = weight;
+        this.weight = weight;
     }
     /**
-     * @return 物品描述
+     * 对于@return物品进行描述
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * @return 物品重量
+     * 对于@return 物品重量
      */
     public double getWeight() {
         return weight;
