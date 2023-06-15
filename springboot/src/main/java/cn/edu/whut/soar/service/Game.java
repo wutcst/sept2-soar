@@ -30,7 +30,7 @@ public class Game
 
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office, tpRoom;
+        Room outside, theater, pub, lab, office,library,tpRoom;
 
         // create the rooms
         outside = new Room("outside","outside the main entrance of the university");
@@ -38,7 +38,8 @@ public class Game
         pub = new Room("pub","in the campus pub");
         lab = new Room("lab","in a computing lab");
         office = new Room("office","in the computing admin office");
-        tpRoom = new Room("tpRoom","你即将被随机传送！");
+        library =new Room("library","in the school's library");
+        tpRoom = new Room("tpRoom","You are about to be randomly teleported!");
 
         // initialise room exits
         outside.setExit("east", theater);
@@ -47,30 +48,39 @@ public class Game
         outside.setExit("north", tpRoom);
 
         theater.setExit("west", outside);
+        theater.setExit("south", office);
 
         pub.setExit("east", outside);
+        pub.setExit("north", library);
 
         lab.setExit("north", outside);
         lab.setExit("east", office);
 
         office.setExit("west", lab);
+        office.setExit("north", theater);
+
+        library.setExit("south",pub);
+        library.setExit("east",tpRoom);
 
         tpRoom.setExit("0",outside);
         tpRoom.setExit("1",theater);
         tpRoom.setExit("2",pub);
         tpRoom.setExit("3",lab);
         tpRoom.setExit("4",office);
+        tpRoom.setExit("5",library);
 
         //初始化房间物品
-        outside.setItem(new Item("item_outside",1));
+        outside.setItem(new Item("apple_outside",1));
 
-        theater.setItem(new Item("item_theater",2));
+        theater.setItem(new Item("dancer_theater",2));
 
-        pub.setItem(new Item("item_pub",3));
+        pub.setItem(new Item("beer_pub",3));
 
         lab.setItem(new Item("lab_outside",4));
 
-        office.setItem(new Item("item_office",5));
+        office.setItem(new Item("computer_office",5));
+
+        library.setItem(new Item("book_library",4));
 
 
         currentRoom = outside;  // start game outside
