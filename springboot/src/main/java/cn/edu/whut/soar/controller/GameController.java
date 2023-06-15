@@ -67,7 +67,7 @@ public class GameController {
         path.clear();
         Random random = new Random();
         //随机房间的出口有5个
-        game.setCurrentRoom(game.getCurrentRoom().getExit(String.valueOf(random.nextInt(5))));
+        game.setCurrentRoom(game.getCurrentRoom().getExit(String.valueOf(random.nextInt(6))));
         return roomService.toVO(game.getCurrentRoom());
     }
 
