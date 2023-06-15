@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Random;
 import java.util.Stack;
 
 
@@ -30,8 +31,7 @@ public class GameController {
     @RequestMapping ("/createGame")
     @ResponseBody
     public RoomVO CreateGame(){
-        Room startRoom =  game.getCurrentRoom();
-        return roomService.toJson(startRoom);
+        return roomService.toVO(game.getCurrentRoom());
     }
 
 
@@ -43,8 +43,33 @@ public class GameController {
         Stack path = game.getPath();
         path.push(currentRoom);
         Room nextRoom = currentRoom.getExit(direction);
-        return roomService.toJson(nextRoom);
+        game.setCurrentRoom(nextRoom);
+        return roomService.toVO(nextRoom);
     }
+
+    @RequestMapping("/back")
+    @ResponseBody
+    public RoomVO Back(){
+        Stack path = game.getPath();
+        if (!path.empty())
+        {
+            Room backRoom = (Room) game.getPath().pop();
+            game.setCurrentRoom(backRoom);
+        }
+        return roomService.toVO(game.getCurrentRoom());
+    }
+
+    @RequestMapping("/tp")
+    @ResponseBody
+    public RoomVO TP(){
+        Stack path = game.getPath();
+        path.clear();
+        Random random = new Random();
+        game.setCurrentRoom(game.getCurrentRoom().getExit(String.valueOf(random.nextInt(5))));
+        return roomService.toVO(game.getCurrentRoom());
+    }
+
+    
 
 
 }

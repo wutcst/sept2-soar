@@ -70,7 +70,7 @@ data:
 ```
 
 # 返回上一个房间，后端返回栈顶房间，同时更新数据库
-path: /back/name
+path: /back
 method: GET
 
 ```json
@@ -94,3 +94,5 @@ Body:
     ArrayList<Item> items, (存放物品对象)
 }
 ```
+
+

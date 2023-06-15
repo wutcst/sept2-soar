@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoomService {
 
-    public RoomVO toJson(Room room){
+    public RoomVO toVO(Room room){
         RoomVO vo = new RoomVO();
         vo.setName(room.getName());
         vo.setDescription(room.getDescription());
