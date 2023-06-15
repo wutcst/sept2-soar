@@ -13,10 +13,16 @@
  */
 package cn.edu.whut.soar.service;
 
+import cn.edu.whut.soar.entity.Room;
+
+import java.util.Stack;
+
 public class Game
 {
     private Parser parser;
     private Room currentRoom;
+
+    private Stack path = new Stack<Room>(); //back的路径
 
     public Game()
     {
@@ -26,19 +32,21 @@ public class Game
 
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
+        Room outside, theater, pub, lab, office, tpRoom;
 
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        outside = new Room("outside","outside the main entrance of the university");
+        theater = new Room("theater","in a lecture theater");
+        pub = new Room("pub","in the campus pub");
+        lab = new Room("lab","in a computing lab");
+        office = new Room("office","in the computing admin office");
+        tpRoom = new Room("tpRoom","你即将被随机传送！");
 
         // initialise room exits
         outside.setExit("east", theater);
         outside.setExit("south", lab);
         outside.setExit("west", pub);
+        outside.setExit("north", tpRoom);
 
         theater.setExit("west", outside);
 
@@ -48,6 +56,24 @@ public class Game
         lab.setExit("east", office);
 
         office.setExit("west", lab);
+
+        tpRoom.setExit("0",outside);
+        tpRoom.setExit("1",theater);
+        tpRoom.setExit("2",pub);
+        tpRoom.setExit("3",lab);
+        tpRoom.setExit("4",office);
+
+        //初始化房间物品
+        outside.setItem(new Item("item_outside",1));
+
+        theater.setItem(new Item("item_theater",2));
+
+        pub.setItem(new Item("item_pub",3));
+
+        lab.setItem(new Item("lab_outside",4));
+
+        office.setItem(new Item("item_office",5));
+
 
         currentRoom = outside;  // start game outside
     }
@@ -89,4 +115,6 @@ public class Game
     public void setCurrentRoom(Room room){
         this.currentRoom = room;
     }
+
+    public Stack getPath() { return path; }
 }
