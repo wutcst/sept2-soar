@@ -12,26 +12,26 @@
 </template>
 
 <script>
-import { getContinueGame } from "@/api";
+import { getContinueGame } from '@/api'
 export default {
-  data() {
+  data () {
     return {
-      last_game: {},
-    };
+      last_game: {}
+    }
   },
-  async mounted() {
-    const res = await getContinueGame({});
-    this.last_game = res.data;
+  async mounted () {
+    const res = await getContinueGame({})
+    this.last_game = res.data
   },
   methods: {
-    createGame() {
-      this.$router.push({ path: "/game", query: { isNew: 1 } });
+    createGame () {
+      this.$router.push({ path: '/game', query: { isNew: 1 } })
     },
-    continueGame() {
-      this.$router.push({ path: "/game", query: { isNew: 0 } });
-    },
-  },
-};
+    continueGame () {
+      this.$router.push({ path: '/game', query: { isNew: 0 } })
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>

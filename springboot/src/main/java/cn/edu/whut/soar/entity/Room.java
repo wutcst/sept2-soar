@@ -40,9 +40,9 @@ public class Room
         return name;
     }
 
-    public String getLongDescription()
+    public String getDescription()
     {
-        return "You are " + description + ".\n" + getExitString();
+        return description;
     }
 
     private String getExitString()
