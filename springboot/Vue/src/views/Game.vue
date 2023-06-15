@@ -9,25 +9,25 @@
       <img class="player" src="@/assets/player.png" />
       <p class="room-name">{{ game.name }}</p>
       <img
-        v-if="game.direction[0] == true"
+        v-if="game.exits[0] == true"
         class="arrow up"
         src="@/assets/up.png"
         @click="Go('north')"
       />
       <img
-        v-if="game.direction[1] == true"
+        v-if="game.exits[1] == true"
         class="arrow right"
         src="@/assets/right.png"
         @click="Go('east')"
       />
       <img
-        v-if="game.direction[2] == true"
+        v-if="game.exits[2] == true"
         class="arrow down"
         src="@/assets/down.png"
         @click="Go('south')"
       />
       <img
-        v-if="game.direction[3] == true"
+        v-if="game.exits[3] == true"
         class="arrow left"
         src="@/assets/left.png"
         @click="Go('west')"
