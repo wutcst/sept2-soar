@@ -10,8 +10,6 @@ public class CommandWords
     public CommandWords()
     {
         commands = new HashMap<String, Command>();
-        commands.put("go", new GoCommand());
-        commands.put("back", new BackCommand());
     }
 
     public Command get(String word)
