@@ -97,8 +97,8 @@ export default {
       //当前路由携带参数为1则表示新游戏
       const res1 = await getNewGame({});
       console.log(res1);
-      this.game = res1.data;
-    } 
+      this.game = res1;
+    }
     // else {
     //   //当前路由携带参数为0表示继续游戏
     //   const res2 = await getContinueGame({});
@@ -119,7 +119,7 @@ export default {
         player.style.top = "0%";
         player.style.transition = "top 1s linear";
         setTimeout(() => {
-          this.game = res.data;
+          this.game = res;
           player.style.transition = "none";
           player.style.top = "40%";
         }, 1000);
@@ -128,7 +128,7 @@ export default {
         player.style.left = "90%";
         player.style.transition = "left 1s linear";
         setTimeout(() => {
-          this.game = res.data;
+          this.game = res;
           player.style.transition = "none";
           player.style.left = "46%";
         }, 1000);
@@ -137,7 +137,7 @@ export default {
         player.style.top = "80%";
         player.style.transition = "top 1s linear";
         setTimeout(() => {
-          this.game = res.data;
+          this.game = res;
           player.style.transition = "none";
           player.style.top = "40%";
         }, 1000);
@@ -146,7 +146,7 @@ export default {
         player.style.left = "0%";
         player.style.transition = "left 1s linear";
         setTimeout(() => {
-          this.game = res.data;
+          this.game = res;
           player.style.transition = "none";
           player.style.left = "46%";
         }, 1000);
@@ -158,7 +158,7 @@ export default {
           const res = await TransferRoom({});
           console.log(res);
           setTimeout(() => {
-            this.game = res.data;
+            this.game = res;
             this.isTransfer = false;
           }, 1000);
         }
@@ -169,13 +169,13 @@ export default {
       const res = await BackLastRoom({});
       console.log(res);
       //如果当前房间名和请求到的数据一致，表示不可返回
-      if (res.data.name == this.game.name) {
+      if (res.name == this.game.name) {
         this.isBack = false;
         setTimeout(() => {
           this.isBack = true;
         }, 1000);
       } else {
-        this.game = res.data;
+        this.game = res;
       }
     },
     //显示look内容
