@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const Axios = axios.create({
-    baseURL: 'http://localhost:8081', //请求基地址
+    baseURL: 'http://localhost:8080', //请求基地址
     timeout: 5000
 })
 
