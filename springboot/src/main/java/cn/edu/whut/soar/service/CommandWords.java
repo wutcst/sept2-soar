@@ -11,8 +11,6 @@ public class CommandWords
     {
         commands = new HashMap<String, Command>();
         commands.put("go", new GoCommand());
-        commands.put("help", new HelpCommand(this));
-        commands.put("quit", new QuitCommand());
         commands.put("back", new BackCommand());
     }
 
