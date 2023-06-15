@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <!-- 地图区 -->
     <div class="map">
       <div class="wall-1"></div>
       <div class="wall-2"></div>
@@ -38,12 +39,14 @@
         </div>
       </div>
     </div>
+    <!-- 底部操作区 -->
     <div class="control">
       <button @click="Back()">Back</button>
       <button @click="Look">Look</button>
       <button @click="Help">Help</button>
       <button @click="$router.push({ path: '/home' })">退出游戏</button>
     </div>
+    <!-- 房间内容 -->
     <div class="info-box">
       <div class="head">
         <p @click="Close">x</p>
@@ -56,6 +59,7 @@
         </p>
       </div>
     </div>
+    <!-- 帮助内容 -->
     <div class="help-box">
       <div class="head">
         <p @click="Close">x</p>
@@ -66,7 +70,9 @@
         <p>You need to help zuul to explore the world.</p>
       </div>
     </div>
-    <div v-if="istransfer" class="transfer-box">这是传送房间，即将传送...</div>
+    <!-- 提示内容 -->
+    <div v-if="isTransfer" class="prompt-box">这是传送房间，即将传送...</div>
+    <div v-if="!isBack" class="prompt-box">回到起点或被传送，不可返回！</div>
   </div>
 </template>
 
@@ -81,28 +87,34 @@ import {
 export default {
   data() {
     return {
-      game: {},
-      istransfer: false,
+      game: {}, //当前游戏对象，保存当前房间信息
+      isBack: true, //判断是否显示不可返回提示
+      isTransfer: false, //判断是否显示传送提示
     };
   },
   async mounted() {
     if (this.$route.query.isNew == 1) {
+      //当前路由携带参数为1则表示新游戏
       const res1 = await getNewGame({});
       console.log(res1);
       this.game = res1.data;
-    } else {
-      const res2 = await getContinueGame({});
-      console.log(res2);
-      this.game = res2.data;
-    }
+    } 
+    // else {
+    //   //当前路由携带参数为0表示继续游戏
+    //   const res2 = await getContinueGame({});
+    //   console.log(res2);
+    //   this.game = res2.data;
+    // }
   },
   methods: {
+    //向后端请求go后的数据
     async Go(direction) {
       const res = await getNextRoom({
         direction: direction,
       });
       console.log(res);
       const player = document.querySelector(".player");
+      //根据方向改变人物移动方向及归位
       if (direction == "north") {
         player.style.top = "0%";
         player.style.transition = "top 1s linear";
@@ -139,31 +151,44 @@ export default {
           player.style.left = "46%";
         }, 1000);
       }
+      //根据房间名判断是否为传送房间，是则请求传送后的数据
       setTimeout(async () => {
         if (this.game.name == "tpRoom") {
-          this.istransfer = true;
+          this.isTransfer = true;
           const res = await TransferRoom({});
           console.log(res);
           setTimeout(() => {
             this.game = res.data;
-            this.istransfer = false;
+            this.isTransfer = false;
           }, 1000);
         }
       }, 1200);
     },
+    //向后端请求back后的数据
     async Back() {
       const res = await BackLastRoom({});
       console.log(res);
-      this.game = res.data;
+      //如果当前房间名和请求到的数据一致，表示不可返回
+      if (res.data.name == this.game.name) {
+        this.isBack = false;
+        setTimeout(() => {
+          this.isBack = true;
+        }, 1000);
+      } else {
+        this.game = res.data;
+      }
     },
+    //显示look内容
     Look() {
       const info_box = document.querySelector(".info-box");
       info_box.style.opacity = "1";
     },
+    //显示help内容
     Help() {
       const help_box = document.querySelector(".help-box");
       help_box.style.opacity = "1";
     },
+    //关闭上面两个功能
     Close() {
       const info_box = document.querySelector(".info-box");
       info_box.style.opacity = "0";
@@ -325,7 +350,7 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0;
-    transition: opacity 1s linear;
+    transition: opacity 0.6s linear;
     border-radius: 20px;
     .head {
       display: flex;
@@ -350,7 +375,7 @@ export default {
       }
     }
   }
-  .transfer-box {
+  .prompt-box {
     height: 300px;
     width: 300px;
     border-radius: 20px;
