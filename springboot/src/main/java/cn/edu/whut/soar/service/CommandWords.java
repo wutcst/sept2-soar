@@ -13,6 +13,8 @@ public class CommandWords
         commands.put("go", new GoCommand());
         commands.put("help", new HelpCommand(this));
         commands.put("quit", new QuitCommand());
+        commands.put("look", new LookCommand());
+        commands.put("back", new BackCommand());
     }
 
     public Command get(String word)
