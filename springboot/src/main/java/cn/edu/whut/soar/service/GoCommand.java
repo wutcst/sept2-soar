@@ -1,7 +1,5 @@
 package cn.edu.whut.soar.service;
 
-import cn.edu.whut.soar.entity.Room;
-
 import java.util.Random;
 import java.util.Stack;
 
@@ -33,7 +31,7 @@ public class GoCommand extends Command
                 System.out.println("你已到达新的房间，使用look命令看看你在哪吧！");
             }else {
                 game.setCurrentRoom(nextRoom);
-                System.out.println(nextRoom.getLongDescription());
+                System.out.println(nextRoom.getDescription());
             }
         }
 
