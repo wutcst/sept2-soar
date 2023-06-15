@@ -12,26 +12,29 @@
 </template>
 
 <script>
-import { getContinueGame } from '@/api'
+// import { getContinueGame } from "@/api";
 export default {
-  data () {
+  data() {
     return {
-      last_game: {}
-    }
+      last_game: {}, //保存上一次游戏的内容
+    };
   },
-  async mounted () {
-    const res = await getContinueGame({})
-    this.last_game = res.data
-  },
+  //获取上一次游戏的数据，依此判断是否显示继续游戏按钮
+  // async mounted() {
+  //   const res = await getContinueGame({});
+  //   this.last_game = res.data;
+  // },
   methods: {
-    createGame () {
-      this.$router.push({ path: '/game', query: { isNew: 1 } })
+    //携带参数1跳转到游戏界面
+    createGame() {
+      this.$router.push({ path: "/game", query: { isNew: 1 } });
     },
-    continueGame () {
-      this.$router.push({ path: '/game', query: { isNew: 0 } })
-    }
-  }
-}
+    //携带参数0跳转到游戏界面
+    continueGame() {
+      this.$router.push({ path: "/game", query: { isNew: 0 } });
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>

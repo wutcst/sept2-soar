@@ -1,22 +1,21 @@
-import request from '@/util/request.js'
+import request from "@/util/request.js";
 
-export const getNewGame = ({ }) => request({
-  url: '/new_game'
+export const getNewGame = ({ }) => request({ //创建游戏，获取初始房间
+    url: '/createGame'
 })
 
-export const getContinueGame = ({ }) => request({
-  url: '/continue_game'
+// export const getContinueGame = ({ }) => request({ //获取上一次游戏
+//     url: '/continueGame'
+// })
+
+export const getNextRoom = ({ direction }) => request({ //go请求
+    url: `/go?direction=${direction}`
 })
 
-export const getNextRoom = ({ direction }) => request({
-  // url: `/go/${direction}`
-  url: '/go'
+export const BackLastRoom = ({ }) => request({ //back请求
+    url: '/back'
 })
 
-export const BackLastRoom = ({ }) => request({
-  url: '/back'
-})
-
-export const TransferRoom = ({ }) => request({
-  url: '/transfer'
+export const TransferRoom = ({ }) => request({ //传送请求
+    url: '/transfer'
 })
