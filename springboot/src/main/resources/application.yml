@@ -1,2 +1,8 @@
 server:
   port: 8081
+
+datasource:
+  driverClassName: com.mysql.cj.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/zuul
+  username: root
+  password: 123456
