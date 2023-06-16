@@ -4,10 +4,7 @@ import cn.edu.whut.soar.db.ItemStore;
 import cn.edu.whut.soar.db.PlayerStore;
 import cn.edu.whut.soar.entity.ItemEntity;
 import cn.edu.whut.soar.entity.PlayerEntity;
-import cn.edu.whut.soar.model.GetPlayerInfoResponse;
-import cn.edu.whut.soar.model.Status;
-import cn.edu.whut.soar.model.TakeItemRequest;
-import cn.edu.whut.soar.model.StatusResponse;
+import cn.edu.whut.soar.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,6 +67,20 @@ public class PlayerService {
         item.setOwnerId(player.getId());
 
         return new StatusResponse(Status.Success);
+    }
+
+    public StatusResponse dropItem(DropItemRequest request) {
+        PlayerEntity player = playerStore.getPlayerEntity();
+
+        ItemEntity item = itemStore.getItem(request.itemId);
+
+        if(item.getOwnerId() != player.getId()) {
+            return new StatusResponse(Status.NotCarry);
+        }
+
+
+
+
     }
 
     public List<ItemEntity> getItems() {
