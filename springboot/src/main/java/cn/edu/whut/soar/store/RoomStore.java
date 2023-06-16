@@ -4,6 +4,7 @@ import cn.edu.whut.soar.entity.RoomEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.Random;
 
 @Repository
 public class RoomStore {
@@ -19,6 +20,10 @@ public class RoomStore {
 
     public RoomEntity getRoom(int id) {
         return roomMap.get(id);
+    }
+
+    public int getRandomRoomId() {
+        return random.nextInt(roomMap.size())+1;
     }
 
     public void addRoom(RoomEntity room) {

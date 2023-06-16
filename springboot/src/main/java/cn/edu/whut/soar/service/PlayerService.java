@@ -6,6 +6,7 @@ import cn.edu.whut.soar.store.PlayerStore;
 import cn.edu.whut.soar.store.RoomStore;
 import cn.edu.whut.soar.entity.ItemEntity;
 import cn.edu.whut.soar.entity.PlayerEntity;
+import cn.edu.whut.soar.entity.RoomEntity;
 import cn.edu.whut.soar.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class PlayerService {
 
     @Autowired
     private PlayerStore playerStore;
+
+    @Autowired
+    private RoomStore roomStore;
 
     @Autowired
     private ItemStore itemStore;
@@ -97,5 +101,38 @@ public class PlayerService {
         PlayerEntity player = playerStore.getPlayerEntity();
 
         return itemStore.getItemsByOwner(ownerTypePlayer, player.getId());
+    }
+
+    public StatusResponse move(String direction) {
+        PlayerEntity player = playerStore.getPlayerEntity();
+
+        RoomEntity currentRoom = roomStore.getRoom(player.getCurrentRoomId());
+
+        Integer nextRoomId = currentRoom.getExitRoomIdMap().get(direction);
+
+        if (nextRoomId == null) {
+            return new StatusResponse(Status.NoRoom);
+        }
+
+        if (nextRoomId == 0) {
+            nextRoomId = roomStore.getRandomRoomId();
+        }
+
+        pathStore.addPath(player.getCurrentRoomId());
+
+        player.setCurrentRoomId(nextRoomId);
+
+        return new StatusResponse(Status.Success);
+    }
+
+    public StatusResponse back(){
+        PlayerEntity player = playerStore.getPlayerEntity();
+
+        if(pathStore.isPathEmpty()){
+            return new StatusResponse(Status.NoPath);
+        }
+
+        player.setCurrentRoomId(pathStore.drawPath());
+        return new StatusResponse(Status.Success);
     }
 }

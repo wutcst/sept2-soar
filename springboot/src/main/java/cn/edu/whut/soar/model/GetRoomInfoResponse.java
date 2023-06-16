@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Data
 @AllArgsConstructor
@@ -13,7 +14,5 @@ public class GetRoomInfoResponse {
 
     private String description;
 
-    private boolean[] exits;
-
-    private ArrayList<ItemEntity> items;
+    private HashMap<String, Integer> exitRoomIdMap;
 }

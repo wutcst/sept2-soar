@@ -1,70 +1,63 @@
 package cn.edu.whut.soar.controller;
 
 
-import cn.edu.whut.soar.entity.RoomEntity;
-import cn.edu.whut.soar.service.Game;
+import cn.edu.whut.soar.entity.ItemEntity;
+import cn.edu.whut.soar.model.GetPlayerInfoResponse;
+import cn.edu.whut.soar.model.GetRoomInfoResponse;
+import cn.edu.whut.soar.model.StatusResponse;
 
-import cn.edu.whut.soar.service.Room;
+import cn.edu.whut.soar.service.PlayerService;
 import cn.edu.whut.soar.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Random;
-import java.util.Stack;
+import java.util.List;
 
 
 @Controller
 @CrossOrigin(origins = "http://localhost:8080")
 public class GameController {
-    Game game = new Game();
-
     @Autowired
     RoomService roomService;
 
-    //请求开始
-    @RequestMapping("/createGame")
+    @Autowired
+    PlayerService playerService;
+
+    @GetMapping("/player")
     @ResponseBody
-    public RoomEntity CreateGame() {
-        return roomService.toVO(game.getCurrentRoom());
+    public GetPlayerInfoResponse getPlayerInfo(@RequestParam("roomId") int roomId) {
+        return playerService.getPlayerInfo();
     }
 
-    @RequestMapping("/go")
+    @GetMapping("/room")
     @ResponseBody
-    public RoomEntity Go(@RequestParam("direction") String direction) {
-        Room currentRoom = game.getCurrentRoom();
-        Stack path = game.getPath();
-        path.push(currentRoom);
-        Room nextRoom = currentRoom.getExit(direction);
-        game.setCurrentRoom(nextRoom);
-        return roomService.toVO(nextRoom);
+    public GetRoomInfoResponse getRoomInfo(@RequestParam("roomId") int roomId) {
+        return roomService.getRoomInfo(roomId);
+    }
+
+    @GetMapping("/room/{id}/items")
+    @ResponseBody
+    public List<ItemEntity> getItemsInRoom(@PathVariable("id") int id) {
+        return roomService.getItemsInRoom(id);
+    }
+
+    @GetMapping("/player/items")
+    @ResponseBody
+    public List<ItemEntity> getItemsOfPlayer() {
+        return playerService.getItems();
+    }
+
+    @PostMapping("/move")
+    @ResponseBody
+    public StatusResponse move(@RequestParam("direction") String direction) {
+        return playerService.move(direction);
     }
 
     @RequestMapping("/back")
     @ResponseBody
-    public RoomEntity Back() {
-        Stack path = game.getPath();
-        if (!path.empty()) {
-            Room backRoom = (Room) game.getPath().pop();
-            game.setCurrentRoom(backRoom);
-        }
-        return roomService.toVO(game.getCurrentRoom());
+    public StatusResponse back() {
+        return playerService.back();
     }
-
-    @RequestMapping("/transfer")
-    @ResponseBody
-    public RoomEntity TP() {
-        Stack path = game.getPath();
-        path.clear();
-        Random random = new Random();
-        //随机房间的出口有5个
-        game.setCurrentRoom(game.getCurrentRoom().getExit(String.valueOf(random.nextInt(6))));
-        return roomService.toVO(game.getCurrentRoom());
-    }
-
-
 }

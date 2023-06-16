@@ -8,6 +8,8 @@ import cn.edu.whut.soar.model.GetRoomInfoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RoomService {
     private static final String ownerTypeRoom = "Room";
@@ -19,57 +21,45 @@ public class RoomService {
     private ItemStore itemStore;
 
     public RoomService() {
-        RoomEntity outside = new RoomEntity(0, "outside", "outside the main entrance of the university");
-        RoomEntity theater = new RoomEntity(0, "theater", "in a lecture theater");
-        RoomEntity pub = new RoomEntity(0, "pub", "in the campus pub");
-        RoomEntity lab = new RoomEntity(0, "lab", "in a computing lab");
+        RoomEntity outside = new RoomEntity(roomStore.getNextId(), "outside", "outside the main entrance of the university");
+        RoomEntity theater = new RoomEntity(roomStore.getNextId(), "theater", "in a lecture theater");
+        RoomEntity pub = new RoomEntity(roomStore.getNextId(), "pub", "in the campus pub");
+        RoomEntity lab = new RoomEntity(roomStore.getNextId(), "lab", "in a computing lab");
+        RoomEntity office = new RoomEntity(roomStore.getNextId(), "office", "in the computing admin office");
+        RoomEntity library = new RoomEntity(roomStore.getNextId(), "library", "in the school's library");
 
+        outside.getExitRoomIdMap().put("east", theater.getId());
+        outside.getExitRoomIdMap().put("south", lab.getId());
+        outside.getExitRoomIdMap().put("west", pub.getId());
+        outside.getExitRoomIdMap().put("north", 0);
 
-        Room lab = new Room("", "");
-        Room office = new Room("office", "in the computing admin office");
-        Room library = new Room("library", "in the school's library");
-        Room tpRoom = new Room("tpRoom", "You are about to be randomly teleported!");
+        theater.getExitRoomIdMap().put("west", outside.getId());
+        theater.getExitRoomIdMap().put("south", office.getId());
 
-        outside.setExit("east", theater);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
-        outside.setExit("north", tpRoom);
+        pub.getExitRoomIdMap().put("east", outside.getId());
+        pub.getExitRoomIdMap().put("north", library.getId());
 
-        theater.setExit("west", outside);
-        theater.setExit("south", office);
+        lab.getExitRoomIdMap().put("north", outside.getId());
+        lab.getExitRoomIdMap().put("east", office.getId());
 
-        pub.setExit("east", outside);
-        pub.setExit("north", library);
+        office.getExitRoomIdMap().put("west", lab.getId());
+        office.getExitRoomIdMap().put("north", theater.getId());
 
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
+        library.getExitRoomIdMap().put("south", pub.getId());
+        library.getExitRoomIdMap().put("east", 0);
 
-        office.setExit("west", lab);
-        office.setExit("north", theater);
+        roomStore.addRoom(outside);
+        roomStore.addRoom(theater);
+        roomStore.addRoom(pub);
+        roomStore.addRoom(lab);
+        roomStore.addRoom(office);
+        roomStore.addRoom(library);
 
-        library.setExit("south", pub);
-        library.setExit("east", tpRoom);
-
-        tpRoom.setExit("0", outside);
-        tpRoom.setExit("1", theater);
-        tpRoom.setExit("2", pub);
-        tpRoom.setExit("3", lab);
-        tpRoom.setExit("4", office);
-        tpRoom.setExit("5", library);
-
-        ItemEntity apple = new ItemEntity(0, "apple", 1, ownerTypeRoom, outsid)
-
-        outside.setItem();
-
-        theater.setItem(new ItemEntity("dancer_theater", 2));
-
-        pub.setItem(new ItemEntity("beer_pub", 3));
-
-        lab.setItem(new ItemEntity("lab_outside", 4));
-
-        office.setItem(new ItemEntity("computer_office", 5));
-
-        library.setItem(new ItemEntity("book_library", 4));
+        itemStore.addItem(new ItemEntity(0, "apple", 1, ownerTypeRoom, outside.getId()));
+        itemStore.addItem(new ItemEntity(0, "dancer", 50, ownerTypeRoom, outside.getId()));
+        itemStore.addItem(new ItemEntity(0, "beer", 2, ownerTypeRoom, pub.getId()));
+        itemStore.addItem(new ItemEntity(0, "computer", 20, ownerTypeRoom, office.getId()));
+        itemStore.addItem(new ItemEntity(0, "library", 20, ownerTypeRoom, library.getId()));
     }
 
     public GetRoomInfoResponse getRoomInfo(int roomId) {
@@ -78,22 +68,11 @@ public class RoomService {
         return new GetRoomInfoResponse(
                 room.getName(),
                 room.getDescription(),
-                room.getExits(),
-                room.getItems()
+                room.getExitRoomIdMap()
         );
     }
 
-    public RoomEntity toVO(Room room) {
-        RoomEntity vo = new RoomEntity();
-        vo.setName(room.getName());
-        vo.setDescription(room.getDescription());
-        boolean[] direction = new boolean[]{false, false, false, false};
-        if (room.getExit("north") != null) direction[0] = true;
-        if (room.getExit("east") != null) direction[1] = true;
-        if (room.getExit("south") != null) direction[2] = true;
-        if (room.getExit("west") != null) direction[3] = true;
-        vo.setExits(direction);
-        vo.setItems(room.getItems());
-        return vo;
+    public List<ItemEntity> getItemsInRoom(int roomId) {
+        return itemStore.getItemsByOwner(ownerTypeRoom, roomId);
     }
 }
