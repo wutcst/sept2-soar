@@ -1,4 +1,4 @@
-package cn.edu.whut.soar.db;
+package cn.edu.whut.soar.store;
 
 import cn.edu.whut.soar.entity.ItemEntity;
 import org.springframework.stereotype.Repository;

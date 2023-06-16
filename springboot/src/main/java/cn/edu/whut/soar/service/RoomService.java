@@ -1,7 +1,7 @@
 package cn.edu.whut.soar.service;
 
-import cn.edu.whut.soar.db.ItemStore;
-import cn.edu.whut.soar.db.RoomStore;
+import cn.edu.whut.soar.store.ItemStore;
+import cn.edu.whut.soar.store.RoomStore;
 import cn.edu.whut.soar.entity.ItemEntity;
 import cn.edu.whut.soar.entity.RoomEntity;
 import cn.edu.whut.soar.model.GetRoomInfoResponse;

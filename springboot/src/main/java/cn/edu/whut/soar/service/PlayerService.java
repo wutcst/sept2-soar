@@ -1,7 +1,9 @@
 package cn.edu.whut.soar.service;
 
-import cn.edu.whut.soar.db.ItemStore;
-import cn.edu.whut.soar.db.PlayerStore;
+import cn.edu.whut.soar.store.ItemStore;
+import cn.edu.whut.soar.store.PathStore;
+import cn.edu.whut.soar.store.PlayerStore;
+import cn.edu.whut.soar.store.RoomStore;
 import cn.edu.whut.soar.entity.ItemEntity;
 import cn.edu.whut.soar.entity.PlayerEntity;
 import cn.edu.whut.soar.model.*;
@@ -13,12 +15,16 @@ import java.util.List;
 @Service
 public class PlayerService {
     private static final String ownerTypePlayer = "Player";
+    private static final String ownerTypeRoom = "Room";
 
     @Autowired
     private PlayerStore playerStore;
 
     @Autowired
     private ItemStore itemStore;
+
+    @Autowired
+    private PathStore pathStore;
 
     public PlayerService() {
     }
@@ -79,7 +85,11 @@ public class PlayerService {
         }
 
 
+        item.setOwnerType(ownerTypeRoom);
+        item.setOwnerId(player.getCurrentRoomId());
 
+
+        return new StatusResponse(Status.NotCarry);
 
     }
 
