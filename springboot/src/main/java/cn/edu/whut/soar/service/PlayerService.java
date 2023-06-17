@@ -90,7 +90,7 @@ public class PlayerService {
         item.setOwnerId(player.getCurrentRoomId());
 
 
-        return new StatusResponse(Status.NotCarry);
+        return new StatusResponse(Status.Success);
 
     }
 
