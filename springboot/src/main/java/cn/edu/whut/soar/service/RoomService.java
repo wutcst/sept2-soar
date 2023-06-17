@@ -5,7 +5,6 @@ import cn.edu.whut.soar.store.RoomStore;
 import cn.edu.whut.soar.entity.ItemEntity;
 import cn.edu.whut.soar.entity.RoomEntity;
 import cn.edu.whut.soar.model.GetRoomInfoResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -60,4 +60,17 @@ public class GameController {
     public StatusResponse back() {
         return playerService.back();
     }
+
+    @RequestMapping("/take/{id}")
+    @ResponseBody
+    public StatusResponse take(@PathVariable("id") int id){
+        return playerService.takeItem(id);
+    }
+
+    @RequestMapping("/drop/{id}")
+    @ResponseBody
+    public StatusResponse drop(@PathVariable("id") int id){
+        return playerService.dropItem(id);
+    }
+
 }

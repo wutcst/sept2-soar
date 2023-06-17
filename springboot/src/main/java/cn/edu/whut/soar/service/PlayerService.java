@@ -53,10 +53,10 @@ public class PlayerService {
         return currentCarryWeight;
     }
 
-    public StatusResponse takeItem(TakeItemRequest request) {
+    public StatusResponse takeItem(int id) {
         PlayerEntity player = playerStore.getPlayerEntity();
 
-        ItemEntity item = itemStore.getItem(request.itemId);
+        ItemEntity item = itemStore.getItem(id);
 
         if (item.getOwnerType().equals(ownerTypePlayer)) {
             return new StatusResponse(Status.NotInCurrentRoom);
@@ -76,10 +76,10 @@ public class PlayerService {
         return new StatusResponse(Status.Success);
     }
 
-    public StatusResponse dropItem(DropItemRequest request) {
+    public StatusResponse dropItem(int id) {
         PlayerEntity player = playerStore.getPlayerEntity();
 
-        ItemEntity item = itemStore.getItem(request.itemId);
+        ItemEntity item = itemStore.getItem(id);
 
         if(item.getOwnerId() != player.getId()) {
             return new StatusResponse(Status.NotCarry);
@@ -111,15 +111,18 @@ public class PlayerService {
             return new StatusResponse(Status.NoRoom);
         }
 
+        String status = Status.Success;
+
         if (nextRoomId == 0) {
             nextRoomId = roomStore.getRandomRoomId();
+            status = "TransferSuccess";
         }
 
         pathStore.addPath(player.getCurrentRoomId());
 
         player.setCurrentRoomId(nextRoomId);
 
-        return new StatusResponse(Status.Success);
+        return new StatusResponse(status);
     }
 
     public StatusResponse back(){
