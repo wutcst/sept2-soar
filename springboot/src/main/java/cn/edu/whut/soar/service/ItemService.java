@@ -9,7 +9,11 @@ import org.springframework.stereotype.Service;
 public class ItemService {
     @Autowired
     private ItemStore itemStore;
-
+    /**
+     * 得到物品的信息
+     * @param itemId 物品的id
+     * @return 物品的信息
+     */
     public ItemEntity getItemInfo(int itemId) {
         return itemStore.getItem(itemId);
     }

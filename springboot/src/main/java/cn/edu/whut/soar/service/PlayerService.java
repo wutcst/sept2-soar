@@ -30,6 +30,10 @@ public class PlayerService {
     @Autowired
     private PathStore pathStore;
 
+    /**
+     * 得到玩家的信息
+     * @return 玩家的信息
+     */
     public GetPlayerInfoResponse getPlayerInfo() {
         PlayerEntity player = playerStore.getPlayerEntity();
 
@@ -40,6 +44,10 @@ public class PlayerService {
         );
     }
 
+    /**
+     * 得到当前玩家的重量
+     * @return 当前玩家的重量
+     */
     public double getCurrentCarryWeight() {
         PlayerEntity player = playerStore.getPlayerEntity();
 
@@ -53,6 +61,11 @@ public class PlayerService {
         return currentCarryWeight;
     }
 
+    /**
+     * 拿取物品
+     * @param id 物品的id
+     * @return 拿取的结果
+     */
     public StatusResponse takeItem(int id) {
         PlayerEntity player = playerStore.getPlayerEntity();
 
@@ -76,6 +89,11 @@ public class PlayerService {
         return new StatusResponse(Status.Success);
     }
 
+    /**
+     * 丢掉物品
+     * @param id 物品的id
+     * @return 丢掉的结果
+     */
     public StatusResponse dropItem(int id) {
         PlayerEntity player = playerStore.getPlayerEntity();
 
@@ -94,12 +112,21 @@ public class PlayerService {
 
     }
 
+    /**
+     * 得到玩家携带的物品
+     * @return 玩家携带的物品列表
+     */
     public List<ItemEntity> getItems() {
         PlayerEntity player = playerStore.getPlayerEntity();
 
         return itemStore.getItemsByOwner(ownerTypePlayer, player.getId());
     }
 
+    /**
+     * 移动
+     * @param direction 移动的方向
+     * @return 移动的结果
+     */
     public StatusResponse move(String direction) {
         PlayerEntity player = playerStore.getPlayerEntity();
 
@@ -125,6 +152,10 @@ public class PlayerService {
         return new StatusResponse(status);
     }
 
+    /**
+     * 回溯
+     * @return 回溯的结果
+     */
     public StatusResponse back(){
         PlayerEntity player = playerStore.getPlayerEntity();
 

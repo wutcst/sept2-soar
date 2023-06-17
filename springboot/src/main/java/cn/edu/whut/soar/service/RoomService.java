@@ -16,7 +16,11 @@ public class RoomService {
     private final RoomStore roomStore;
 
     private final ItemStore itemStore;
-
+    /**
+     * 生成房间和房间里的物品
+     * @param roomStore 存储房间
+     * @param itemStore 存储物品
+     */
     public RoomService(RoomStore roomStore, ItemStore itemStore) {
         this.roomStore = roomStore;
         this.itemStore = itemStore;
@@ -62,6 +66,11 @@ public class RoomService {
         itemStore.addItem(new ItemEntity(0, "library", 20, ownerTypeRoom, library.getId()));
     }
 
+    /**
+     * 得到房间的信息
+     * @param roomId 房间的id
+     * @return 房间的信息
+     */
     public GetRoomInfoResponse getRoomInfo(int roomId) {
         RoomEntity room = roomStore.getRoom(roomId);
 
@@ -72,6 +81,11 @@ public class RoomService {
         );
     }
 
+    /**
+     * 得到房间里的物品
+     * @param roomId 房间的id
+     * @return 房间里物品的信息
+     */
     public List<ItemEntity> getItemsInRoom(int roomId) {
         return itemStore.getItemsByOwner(ownerTypeRoom, roomId);
     }
