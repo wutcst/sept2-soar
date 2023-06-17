@@ -9,7 +9,10 @@ public class PlayerStore {
 
     static PlayerEntity playerEntity = new PlayerEntity(1, "小小英雄", defaultMaxCarryWeight, 1);
 
-    // 现在仅支持一个用户.
+    /**
+     * 得到玩家的实体
+     * @return 玩家的实体
+     */
     public PlayerEntity getPlayerEntity() {
         return playerEntity;
     }

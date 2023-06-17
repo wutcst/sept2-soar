@@ -13,10 +13,21 @@ public class ItemStore {
 
     static HashMap<Integer, ItemEntity> itemMap = new HashMap<>();
 
+    /**
+     * 根据物品id得到物品的信息
+     * @param id 物品id
+     * @return 物品的信息
+     */
     public ItemEntity getItem(int id) {
         return itemMap.get(id);
     }
 
+    /**
+     * 根据物品的所属得到物品的信息
+     * @param ownerType 物品属于房间还是玩家
+     * @param ownerId 玩家或房间的id
+     * @return 物品的信息
+     */
     public List<ItemEntity> getItemsByOwner(String ownerType, int ownerId) {
         List<ItemEntity> result = new ArrayList<>();
 
@@ -29,6 +40,10 @@ public class ItemStore {
         return result;
     }
 
+    /**
+     * 向库里添加物品
+     * @param item 物品实体
+     */
     public void addItem(ItemEntity item) {
         if (item.getId() == 0) {
             item.setId(nextId++);
