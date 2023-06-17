@@ -51,6 +51,7 @@
       <button @click="Help">Help</button>
       <button @click="$router.push({ path: '/home' })">退出游戏</button>
     </div>
+
     <!-- 房间内容 -->
     <div class="info-box">
       <div class="head">
@@ -64,6 +65,7 @@
         </p>
       </div>
     </div>
+
     <!-- 帮助内容 -->
     <div class="help-box">
       <div class="head">
@@ -75,6 +77,8 @@
         <p>You need to help zuul to explore the world.</p>
       </div>
     </div>
+
+    <!-- 用户内容 -->
     <div class="player-box">
       <div class="head">
         <p @click="Close">x</p>
@@ -85,6 +89,8 @@
         <p>当前房间id：{{ player.currentRoomId }}</p>
       </div>
     </div>
+
+    <!-- 背包内容 -->
     <div class="drop-box">
       <div class="head">
         <p @click="Close">x</p>
@@ -96,6 +102,8 @@
         </div>
       </div>
     </div>
+
+    <!-- 提示内容 -->
     <div v-if="msg != ''" class="prompt-box">
       <p>{{ msg }}</p>
     </div>
@@ -126,20 +134,25 @@ export default {
       itemsOfPlayer: [],
     };
   },
+  //初始化
   async mounted() {
     await this.syncGameStatus();
   },
   methods: {
+    //更新游戏内容
     async syncGameStatus() {
       this.player = await getPlayerInfo();
       this.room = await getRoomInfo(this.player.currentRoomId);
       this.itemsInRoom = await getItemsInRoom(this.player.currentRoomId);
     },
+    //前往下一个房间
     async move(direction) {
       const res = await moveTowardsDirection(direction);
-      if(res.status == 'TransferSuccess'){
-      this.msg='即将传送...';
-      setTimeout(()=>{this.msg="";},1000)
+      if (res.status == "TransferSuccess") {
+        this.msg = "即将传送...";
+        setTimeout(() => {
+          this.msg = "";
+        }, 1000);
       }
 
       const playerDocument = document.querySelector(".player");
@@ -181,12 +194,13 @@ export default {
         }, 1000);
       }
 
-      setTimeout(()=>{
-      if(this.player.currentRoomId == 0){
-      alert('transfer');
-      }},1000
-      )
+      setTimeout(() => {
+        if (this.player.currentRoomId == 0) {
+          alert("transfer");
+        }
+      }, 1000);
     },
+    //返回上一房间
     async back() {
       await BackLastRoom();
       await this.syncGameStatus();
@@ -203,7 +217,7 @@ export default {
       help_box.style.opacity = "1";
       help_box.style.zIndex = "2";
     },
-    //关闭上面两个功能
+    //关闭打开的页面
     Close() {
       const info_box = document.querySelector(".info-box");
       info_box.style.opacity = "0";
@@ -218,11 +232,13 @@ export default {
       drop_box.style.opacity = "0";
       drop_box.style.zIndex = "0";
     },
+    //显示用户信息
     showPlayerInfo() {
       const player_box = document.querySelector(".player-box");
       player_box.style.opacity = "1";
       player_box.style.zIndex = "2";
     },
+    //捡起物品
     async take(item_id) {
       const res = await TakeItems(item_id);
       if (res.status == "NotInCurrentRoom") {
@@ -244,11 +260,13 @@ export default {
         }, 1000);
       }
     },
+    //打开背包
     openDrop() {
       const drop_box = document.querySelector(".drop-box");
       drop_box.style.opacity = "1";
       drop_box.style.zIndex = "2";
     },
+    //丢弃物品
     async drop(item_id) {
       const res = await DropItems(item_id);
       if (res.status == "NotCarry") {
@@ -265,6 +283,9 @@ export default {
           if (this.itemsOfPlayer[i] == item_id) {
             this.itemsOfPlayer.splice(i, 1);
             await this.syncGameStatus();
+            if(this.itemsOfPlayer.length==0) {const drop_box = document.querySelector(".drop-box");
+                                                   drop_box.style.opacity = "0";
+                                                   drop_box.style.zIndex = "0";}
           }
         }
       }
@@ -345,15 +366,15 @@ export default {
         height: 100%;
         width: 100%;
       }
-      .drop{
-      height:50px;
-      width:100px;
-      border-radius:20px;
-      color: white;
-      font-size:20px;
-      background: rgb(56,56,56);
-      border: none;
-      cursor:pointer;
+      .drop {
+        height: 50px;
+        width: 100px;
+        border-radius: 20px;
+        color: white;
+        font-size: 20px;
+        background: rgb(56, 56, 56);
+        border: none;
+        cursor: pointer;
       }
     }
 
@@ -426,7 +447,7 @@ export default {
 
         p {
           color: #fff;
-          font-size:20px;
+          font-size: 20px;
         }
       }
     }
@@ -448,7 +469,7 @@ export default {
       cursor: pointer;
       border: none;
       font-family: SThupo;
-      background: rgb(88,88,88);
+      background: rgb(88, 88, 88);
       color: white;
     }
   }
@@ -518,6 +539,7 @@ export default {
           font-size: 20px;
           color: white;
           border: none;
+          font-family: SThupo;
         }
       }
     }

@@ -3,36 +3,15 @@
     <div class="box">
       <h1>world of zuul</h1>
       <h3>祖尔的世界</h3>
-      <button @click="createGame">开始游戏</button>
-      <button v-if="last_game.name != null" @click="continueGame">
-        继续游戏
-      </button>
+      <button @click="$router.push({ path: '/game' })">开始游戏</button>
     </div>
   </div>
 </template>
 
 <script>
-// import { getContinueGame } from "@/api";
 export default {
   data() {
-    return {
-      last_game: {}, //保存上一次游戏的内容
-    };
-  },
-  //获取上一次游戏的数据，依此判断是否显示继续游戏按钮
-  // async mounted() {
-  //   const res = await getContinueGame({});
-  //   this.last_game = res.data;
-  // },
-  methods: {
-    //携带参数1跳转到游戏界面
-    createGame() {
-      this.$router.push({ path: "/game", query: { isNew: 1 } });
-    },
-    //携带参数0跳转到游戏界面
-    continueGame() {
-      this.$router.push({ path: "/game", query: { isNew: 0 } });
-    },
+    return {};
   },
 };
 </script>
