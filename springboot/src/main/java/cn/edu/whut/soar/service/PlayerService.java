@@ -30,9 +30,6 @@ public class PlayerService {
     @Autowired
     private PathStore pathStore;
 
-    public PlayerService() {
-    }
-
     public GetPlayerInfoResponse getPlayerInfo() {
         PlayerEntity player = playerStore.getPlayerEntity();
 

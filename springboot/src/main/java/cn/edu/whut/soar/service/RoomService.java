@@ -14,13 +14,14 @@ import java.util.List;
 public class RoomService {
     private static final String ownerTypeRoom = "Room";
 
-    @Autowired
-    private RoomStore roomStore;
+    private final RoomStore roomStore;
 
-    @Autowired
-    private ItemStore itemStore;
+    private final ItemStore itemStore;
 
-    public RoomService() {
+    public RoomService(RoomStore roomStore, ItemStore itemStore) {
+        this.roomStore = roomStore;
+        this.itemStore = itemStore;
+
         RoomEntity outside = new RoomEntity(roomStore.getNextId(), "outside", "outside the main entrance of the university");
         RoomEntity theater = new RoomEntity(roomStore.getNextId(), "theater", "in a lecture theater");
         RoomEntity pub = new RoomEntity(roomStore.getNextId(), "pub", "in the campus pub");

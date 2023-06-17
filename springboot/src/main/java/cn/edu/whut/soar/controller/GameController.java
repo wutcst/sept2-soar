@@ -27,14 +27,14 @@ public class GameController {
 
     @GetMapping("/player")
     @ResponseBody
-    public GetPlayerInfoResponse getPlayerInfo(@RequestParam("roomId") int roomId) {
+    public GetPlayerInfoResponse getPlayerInfo() {
         return playerService.getPlayerInfo();
     }
 
-    @GetMapping("/room")
+    @GetMapping("/room/{id}")
     @ResponseBody
-    public GetRoomInfoResponse getRoomInfo(@RequestParam("roomId") int roomId) {
-        return roomService.getRoomInfo(roomId);
+    public GetRoomInfoResponse getRoomInfo(@PathVariable("id") int id) {
+        return roomService.getRoomInfo(id);
     }
 
     @GetMapping("/room/{id}/items")
@@ -49,9 +49,9 @@ public class GameController {
         return playerService.getItems();
     }
 
-    @PostMapping("/move")
+    @GetMapping("/move/{direction}")
     @ResponseBody
-    public StatusResponse move(@RequestParam("direction") String direction) {
+    public StatusResponse move(@PathVariable("direction") String direction) {
         return playerService.move(direction);
     }
 
