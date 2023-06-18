@@ -31,6 +31,7 @@ public class RoomService {
         RoomEntity lab = new RoomEntity(roomStore.getNextId(), "lab", "in a computing lab");
         RoomEntity office = new RoomEntity(roomStore.getNextId(), "office", "in the computing admin office");
         RoomEntity library = new RoomEntity(roomStore.getNextId(), "library", "in the school's library");
+        RoomEntity zoo = new RoomEntity(roomStore.getNextId(), "zoo", "all kinds of animals here");
 
         outside.getExitRoomIdMap().put("east", theater.getId());
         outside.getExitRoomIdMap().put("south", lab.getId());
@@ -39,6 +40,7 @@ public class RoomService {
 
         theater.getExitRoomIdMap().put("west", outside.getId());
         theater.getExitRoomIdMap().put("south", office.getId());
+        theater.getExitRoomIdMap().put("north", zoo.getId());
 
         pub.getExitRoomIdMap().put("east", outside.getId());
         pub.getExitRoomIdMap().put("north", library.getId());
@@ -52,18 +54,24 @@ public class RoomService {
         library.getExitRoomIdMap().put("south", pub.getId());
         library.getExitRoomIdMap().put("east", 0);
 
+        zoo.getExitRoomIdMap().put("west", 0);
+        zoo.getExitRoomIdMap().put("south",theater.getId());
+
         roomStore.addRoom(outside);
         roomStore.addRoom(theater);
         roomStore.addRoom(pub);
         roomStore.addRoom(lab);
         roomStore.addRoom(office);
         roomStore.addRoom(library);
+        roomStore.addRoom(zoo);
 
         itemStore.addItem(new ItemEntity(0, "apple", 10, ownerTypeRoom, outside.getId()));
         itemStore.addItem(new ItemEntity(0, "dancer", 100, ownerTypeRoom, outside.getId()));
         itemStore.addItem(new ItemEntity(0, "beer", 20, ownerTypeRoom, pub.getId()));
         itemStore.addItem(new ItemEntity(0, "computer", 20, ownerTypeRoom, office.getId()));
-        itemStore.addItem(new ItemEntity(0, "library", 20, ownerTypeRoom, library.getId()));
+        itemStore.addItem(new ItemEntity(0, "book", 20, ownerTypeRoom, library.getId()));
+        itemStore.addItem(new ItemEntity(0, "monkey", 80, ownerTypeRoom, zoo.getId()));
+        itemStore.addItem(new ItemEntity(0, "water", 15, ownerTypeRoom, lab.getId()));
     }
 
     /**
