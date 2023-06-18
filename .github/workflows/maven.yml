@@ -34,7 +34,7 @@ jobs:
     - name: 保存jar包
       run: mkdir -p jar && cp springboot/target/soar-0.0.1-SNAPSHOT.jar jar
     - name: 上传jar包
-    - uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v3
       with:
         name: zuul
         path: jar
