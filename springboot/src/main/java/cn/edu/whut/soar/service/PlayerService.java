@@ -99,7 +99,7 @@ public class PlayerService {
 
         ItemEntity item = itemStore.getItem(id);
 
-        if(item.getOwnerId() != player.getId()) {
+        if(item.getOwnerType().equals(ownerTypeRoom)||item.getOwnerId() != player.getId()) {
             return new StatusResponse(Status.NotCarry);
         }
 
