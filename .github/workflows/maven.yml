@@ -27,12 +27,10 @@ jobs:
         java-version: '8'
         distribution: 'temurin'
         cache: maven
-    - name: 进入springboot目录
-      run: cd /d springboot
     - name: 编译代码
-      run: mvn compile
+      run: mvn compile --file springboot/pom.xml
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -B package --file springboot/pom.xml
     - name: 保存jar包
       run: mkdir jar && cp target/*.jar jar
 
