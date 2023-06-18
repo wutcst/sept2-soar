@@ -85,8 +85,13 @@
       </div>
       <div class="content">
         <p>用户名：{{ player.name }}</p>
-        <p>背包上限：{{ player.maxCarryWeight }}</p>
-        <p>当前房间id：{{ player.currentRoomId }}</p>
+        <p>当前容量/总容量：{{ player.currentCarryWeight}}/{{player.maxCarryWeight}}</p>
+        <p>当前房间名：{{ player.currentRoomName }}</p>
+        <p>背包物品：</p>
+        <p v-if="itemsOfPlayer.length==0">无</p>
+        <p v-else v-for="obj in itemsOfPlayer" :key="obj.id">
+        物品：{{obj.description}}，重量：{{obj.weight}}
+        </p>
       </div>
     </div>
 
@@ -97,8 +102,9 @@
       </div>
       <div class="content" v-for="obj in itemsOfPlayer" :key="obj.id">
         <div class="item-list">
-          <p>物品id：{{ obj }}</p>
-          <button @click="drop(obj)">drop</button>
+          <p>物品：{{ obj.description }}</p>
+          <p>重量：{{ obj.weight }}</p>
+          <button @click="drop(obj.id)">drop</button>
         </div>
       </div>
     </div>
@@ -113,6 +119,7 @@
 <script>
 import {
   getPlayerInfo,
+  getPlayerItems,
   getRoomInfo,
   getItemsInRoom,
   moveTowardsDirection,
@@ -144,6 +151,7 @@ export default {
       this.player = await getPlayerInfo();
       this.room = await getRoomInfo(this.player.currentRoomId);
       this.itemsInRoom = await getItemsInRoom(this.player.currentRoomId);
+      this.itemsOfPlayer = await getPlayerItems();
     },
     //前往下一个房间
     async move(direction) {
@@ -202,8 +210,13 @@ export default {
     },
     //返回上一房间
     async back() {
-      await BackLastRoom();
-      await this.syncGameStatus();
+      const res = await BackLastRoom();
+      if(res.status == 'NoPath'){
+      this.msg = '已回到起点或被传送！';
+      setTimeout(()=>{this.msg='';},1000);
+      }
+      else{
+      await this.syncGameStatus();}
     },
     //显示look内容
     Look() {
@@ -252,7 +265,7 @@ export default {
           this.msg = "";
         }, 1000);
       } else {
-        this.itemsOfPlayer.push(item_id);
+        //this.itemsOfPlayer.push(item_id);
         await this.syncGameStatus();
         this.msg = "拾起成功！";
         setTimeout(() => {
@@ -280,12 +293,14 @@ export default {
           this.msg = "";
         }, 1000);
         for (var i = 0; i < this.itemsOfPlayer.length; i++) {
-          if (this.itemsOfPlayer[i] == item_id) {
+          if (this.itemsOfPlayer[i].id == item_id) {
             this.itemsOfPlayer.splice(i, 1);
             await this.syncGameStatus();
-            if(this.itemsOfPlayer.length==0) {const drop_box = document.querySelector(".drop-box");
-                                                   drop_box.style.opacity = "0";
-                                                   drop_box.style.zIndex = "0";}
+            if(this.itemsOfPlayer.length==0) {
+              const drop_box = document.querySelector(".drop-box");
+              drop_box.style.opacity = "0";
+              drop_box.style.zIndex = "0";
+            }
           }
         }
       }
@@ -448,6 +463,7 @@ export default {
         p {
           color: #fff;
           font-size: 20px;
+          margin-top: 0px;
         }
       }
     }
