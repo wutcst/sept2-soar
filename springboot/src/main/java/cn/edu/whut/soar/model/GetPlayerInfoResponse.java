@@ -7,6 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class GetPlayerInfoResponse {
     private String name;
+    private double CurrentCarryWeight;
     private double maxCarryWeight;
-    private int currentRoomId;
 }

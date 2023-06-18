@@ -31,20 +31,6 @@ public class PlayerService {
     private PathStore pathStore;
 
     /**
-     * 得到玩家的信息
-     * @return 玩家的信息
-     */
-    public GetPlayerInfoResponse getPlayerInfo() {
-        PlayerEntity player = playerStore.getPlayerEntity();
-
-        return new GetPlayerInfoResponse(
-                player.getName(),
-                player.getMaxCarryWeight(),
-                player.getCurrentRoomId()
-        );
-    }
-
-    /**
      * 得到当前玩家的重量
      * @return 当前玩家的重量
      */
@@ -59,6 +45,20 @@ public class PlayerService {
         }
 
         return currentCarryWeight;
+    }
+
+    /**
+     * 得到玩家的信息
+     * @return 玩家的信息
+     */
+    public GetPlayerInfoResponse getPlayerInfo() {
+        PlayerEntity player = playerStore.getPlayerEntity();
+
+        return new GetPlayerInfoResponse(
+                player.getName(),
+                getCurrentCarryWeight(),
+                player.getMaxCarryWeight()
+        );
     }
 
     /**

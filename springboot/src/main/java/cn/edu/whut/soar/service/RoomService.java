@@ -59,9 +59,9 @@ public class RoomService {
         roomStore.addRoom(office);
         roomStore.addRoom(library);
 
-        itemStore.addItem(new ItemEntity(0, "apple", 1, ownerTypeRoom, outside.getId()));
-        itemStore.addItem(new ItemEntity(0, "dancer", 50, ownerTypeRoom, outside.getId()));
-        itemStore.addItem(new ItemEntity(0, "beer", 2, ownerTypeRoom, pub.getId()));
+        itemStore.addItem(new ItemEntity(0, "apple", 10, ownerTypeRoom, outside.getId()));
+        itemStore.addItem(new ItemEntity(0, "dancer", 100, ownerTypeRoom, outside.getId()));
+        itemStore.addItem(new ItemEntity(0, "beer", 20, ownerTypeRoom, pub.getId()));
         itemStore.addItem(new ItemEntity(0, "computer", 20, ownerTypeRoom, office.getId()));
         itemStore.addItem(new ItemEntity(0, "library", 20, ownerTypeRoom, library.getId()));
     }
