@@ -57,7 +57,9 @@ public class PlayerService {
         return new GetPlayerInfoResponse(
                 player.getName(),
                 getCurrentCarryWeight(),
-                player.getMaxCarryWeight()
+                player.getMaxCarryWeight(),
+                player.getCurrentRoomId(),
+                roomStore.getRoom(player.getCurrentRoomId()).getName()
         );
     }
 
