@@ -28,7 +28,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: 进入springboot目录
-      run: cd springboot
+      run: cd /d springboot
     - name: 编译代码
       run: mvn compile
     - name: Build with Maven
