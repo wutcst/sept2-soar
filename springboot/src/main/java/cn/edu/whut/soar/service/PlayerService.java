@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/**
+ * 完成功能设计
+ */
 @Service
 public class PlayerService {
     private static final String ownerTypePlayer = "Player";

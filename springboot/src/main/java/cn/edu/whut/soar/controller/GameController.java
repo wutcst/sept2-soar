@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+/**
+ *该类用于响应前后端请求
+ */
 @Controller
 @CrossOrigin(origins = "http://localhost:8080")
 public class GameController {
