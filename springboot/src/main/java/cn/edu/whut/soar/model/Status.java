@@ -1,5 +1,7 @@
 package cn.edu.whut.soar.model;
-
+/**
+ * 返回的响应信息
+ */
 public class Status {
     static public final String Success = "Success";
     static public final String NotInCurrentRoom = "NotInCurrentRoom";

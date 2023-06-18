@@ -1,17 +1,26 @@
 # 软件工程实训报告
 ## 代码结构分析
-### 基本类
-Main：程序的入口，创建并开始游戏。
-Game：游戏的主类，用户进入游戏后项目就执行此类的 play() 方法开始执行游戏。在初始化 Game类对象时执行 createRooms()方法来初始化房间并将它们连成迷宫，同时初始化加载 Parser工具类对象来执行命令解析的操作。
-Room：系统中所有房间的基类，包含房间名称（description）、房间出口（exits）。通过继承该类可以构建不同的房间对象。
-Command：接收用户输入的指令，内部包含基础指令(commandWord)、具体指令(secondWord)；
-CommandWord：系统内部可用指令，主要是三个指令 Quit、Go、Help。还包含判断和显示可用指令的方法。
-Parser：解析终端用户输入命令的工具类。通过Scanner对象获取用户输入，然后对输入的命令进行解析，解析成两个单词，前一个单词是系统内部可用指令之一，后一个单词表示具体的命令。
-### 类之间的关系
-1. Main类通过new生成一个Game类的对象，调用play方法，开始游戏，二者间存在依赖关系。
-2. Game类中有两个成员变量分别为Room类和Parser类，存在组合关系。
-3. Game类中的quit方法的参数类型为Command类，存在依赖关系。
-4. Parser类中有成员变量的类型为Room类，存在组合关系。
-5. Parser类中的getCommand方法的参数类型为Command类，存在依赖关系。
-### 类图
+### 前端设计
+
+### 后端 有关SpringBoot的设计
+#### Controller：
+1. GameController：调用业务层方法来控制游戏逻辑; controller层的功能为本次游戏请求和响应控制; controller层负责本次前后端交互，接受前端请求，，接收返回的数据，最后返回具体的页面和数据到客户端。
+#### entity:
+1. ItemEntity:设计物品类，赋予物品名称、物品重量、物品id、所有者类型以及所有者id这些相关属性参与游戏交互。
+2. PlayerEntity:设计玩家类，玩家默认设计只有一个人，赋予玩家id，玩家携带最大重量以及上一个到达的房间有关属性。
+3. RoomEntity:设计房间类，设计相关属性和方法。
+#### model:
+1. GetPlayerInfoResponse:整理响应请求玩家所需要的信息
+2. GetRoomInfoResponse:整理响应请求房间所需要的信息
+3. Status:返回的响应信息
+4. StatusResponse:该类用于整理返回的响应信息
+#### service:
+1. PlayerService:
+2. RoomService:
+#### store:
+1. ItemStore:
+2. PathStore:
+3. RoomStore:
+
+
 ### 扩展功能(具体实现见代码文件)

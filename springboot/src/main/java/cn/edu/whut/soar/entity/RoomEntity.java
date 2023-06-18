@@ -3,7 +3,9 @@ package cn.edu.whut.soar.entity;
 import lombok.Data;
 
 import java.util.HashMap;
-
+/**
+ *设计房间类
+ */
 @Data
 public class RoomEntity {
     public RoomEntity(int id, String name, String description) {

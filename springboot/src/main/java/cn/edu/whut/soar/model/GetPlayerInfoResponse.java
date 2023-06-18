@@ -2,6 +2,9 @@ package cn.edu.whut.soar.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+/**
+ *该类用于整理响应请求玩家所需要的信息
+ */
 
 @Data
 @AllArgsConstructor
