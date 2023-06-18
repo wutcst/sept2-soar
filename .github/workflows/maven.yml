@@ -33,6 +33,7 @@ jobs:
       run: mvn compile
     - name: Build with Maven
       run: mvn -B package --file springboot/pom.xml
+    - name: 保存jar包
     - run: mkdir jar && cp target/*.jar jar
     - uses: actions/upload-artifact@v3
       with:
